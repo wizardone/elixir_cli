@@ -1,18 +1,5 @@
 defmodule ElixirCli do
-  @moduledoc """
-  Documentation for ElixirCli.
-  """
-
-  @doc """
-  Hello world.
-
-  ## Examples
-
-      iex> ElixirCli.hello
-      :world
-
-  """
-  def hello do
-    :world
+  def main(args \\ []) do
+    IO.puts("Hello from CLI!")
   end
 end
