@@ -1,4 +1,4 @@
-defmodule ElixirCli.MixProject do
+defmodule TravisCli.MixProject do
   use Mix.Project
 
   def project do
@@ -20,7 +20,7 @@ defmodule ElixirCli.MixProject do
   end
 
   defp escript do
-    [main_module: ElixirCli]
+    [main_module: TravisCli]
   end
 
   # Run "mix help deps" to learn about dependencies.
