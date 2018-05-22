@@ -19,11 +19,10 @@ defmodule TravisCli do
   end
 
   defp get_build(build) do
-    IO.puts("Getting build")
   end
 
   defp get_user(user) do
-    IO.puts("Getting user")
+    TravisApi.get_user(user)
   end
 
   defp switches do
