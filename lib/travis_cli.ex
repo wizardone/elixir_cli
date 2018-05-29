@@ -29,7 +29,7 @@ defmodule TravisCli do
     [
       build: :string,
       builds: :string,
-      user: :string
+      user: :boolean
     ]
   end
 end

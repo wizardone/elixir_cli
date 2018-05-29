@@ -1,5 +1,7 @@
 defmodule TravisCliTest do
   import ExUnit.CaptureIO
+  import Mox
+
   use ExUnit.Case
   doctest TravisCli
 
@@ -13,5 +15,9 @@ defmodule TravisCliTest do
 
   test "main not a valid command" do
     assert capture_io(fn -> TravisCli.main(["--foobar"]) end) == "Not a valid command, please use --help\n"
+  end
+
+  test "--user option"do
+    
   end
 end
