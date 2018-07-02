@@ -2,7 +2,7 @@ defmodule TravisApi do
 
   @travis_api "https://api.travis-ci.org"
   @headers ["Authorization": "token #{Application.get_env(:elixir_cli, :travis_token)}", "Travis-API-Version": "3"]
-  @http_client HTTPoison
+  @http_client Application.get_env(:elixir_cli, :http_client)
 
   def get_user(user) do
     case @http_client.get(@travis_api <> "/user", @headers) do
