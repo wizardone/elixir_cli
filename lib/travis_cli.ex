@@ -22,7 +22,7 @@ defmodule TravisCli do
   end
 
   defp get_user(user) do
-    TravisApi.get_user(user)
+    TravisCli.TravisApi.get_user(user)
   end
 
   defp switches do

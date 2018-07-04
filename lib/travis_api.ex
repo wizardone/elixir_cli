@@ -1,18 +1,17 @@
-defmodule TravisApi do
-
+defmodule TravisCli.TravisApi do
+  @behaviour TravisCli.TravisApiBehaviour
   @travis_api "https://api.travis-ci.org"
   @headers ["Authorization": "token #{Application.get_env(:elixir_cli, :travis_token)}", "Travis-API-Version": "3"]
-  @http_client Application.get_env(:elixir_cli, :http_client)
 
-  def get_user(user) do
-    case @http_client.get(@travis_api <> "/user", @headers) do
-      {:ok, %@http_client.Response{status_code: 200, body: body}} ->
+  def get_user(_user) do
+    case HTTPoison.get(@travis_api <> "/user", @headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         IO.puts(body)
-      {:error, %@http_client.Error{reason: reason}} ->
+      {:error, %HTTPoison.Error{reason: reason}} ->
         IO.puts(reason)
     end
   end
 
-  def get_build(build) do
+  def get_build(_build) do
   end
 end

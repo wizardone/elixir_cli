@@ -1,15 +1,10 @@
 ExUnit.start()
 
-#import FakeHTTPoison
-defmodule FakeHTTPoison do
-
-  defmodule Response do
-    defstruct status_code: 200, body: ""
-  end
-
-  defmodule Error do
-    defstruct reason: "WAT?"
+defmodule TravisCli.FakeTravisApi do
+  @behaviour TravisCli.TravisApiBehaviour
+  def get_user('user') do
+    'haha'
   end
 end
 
-Mox.defmock(FakeHTTPoison, for: HTTPoison)
+Mox.defmock(TravisCli.FakeTravisApi, for: TravisCli.TravisApi)

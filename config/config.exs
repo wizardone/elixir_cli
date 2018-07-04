@@ -22,7 +22,7 @@ use Mix.Config
 #
 
 config :elixir_cli, travis_token: System.get_env("TRAVIS_TOKEN")
-config :elixir_cli, http_client: HTTPoison
+config :elixir_cli, api_client: TravisCli.TravisApi
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.
