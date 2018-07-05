@@ -1,3 +1,3 @@
 use Mix.Config
 
-config :elixir_cli, api_client: FakeTravisApi
+config :travis_cli, api_client: TravisCli.FakeTravisApi

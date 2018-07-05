@@ -1,7 +1,11 @@
 defmodule TravisCli.TravisApi do
-  @behaviour TravisCli.TravisApiBehaviour
+  @callback get_user(any :: any) :: any
+end
+
+defmodule TravisCli.RealTravisApi do
+  @behaviour TravisCli.TravisApi
   @travis_api "https://api.travis-ci.org"
-  @headers ["Authorization": "token #{Application.get_env(:elixir_cli, :travis_token)}", "Travis-API-Version": "3"]
+  @headers ["Authorization": "token #{Application.get_env(:travis_cli, :travis_token)}", "Travis-API-Version": "3"]
 
   def get_user(_user) do
     case HTTPoison.get(@travis_api <> "/user", @headers) do
@@ -12,6 +16,6 @@ defmodule TravisCli.TravisApi do
     end
   end
 
-  def get_build(_build) do
+  def get_build() do
   end
 end

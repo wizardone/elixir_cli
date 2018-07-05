@@ -21,8 +21,8 @@ use Mix.Config
 #     config :logger, level: :info
 #
 
-config :elixir_cli, travis_token: System.get_env("TRAVIS_TOKEN")
-config :elixir_cli, api_client: TravisCli.TravisApi
+config :travis_cli, travis_token: System.get_env("TRAVIS_TOKEN")
+config :travis_cli, api_client: TravisCli.RealTravisApi
 # It is also possible to import configuration files, relative to this
 # directory. For example, you can emulate configuration per environment
 # by uncommenting the line below and defining dev.exs, test.exs and such.

@@ -1,5 +1,7 @@
 defmodule TravisCli do
 
+  @api_client Application.get_env(:travis_cli, :api_client)
+
   def main([]) do
     IO.puts("Please provide arguments")
   end
@@ -18,11 +20,11 @@ defmodule TravisCli do
     IO.puts("Provide one of : --build, --builds, --user to retrieve information from Travis")
   end
 
-  defp get_build(build) do
+  defp get_build(_build) do
   end
 
   defp get_user(user) do
-    TravisCli.TravisApi.get_user(user)
+    @api_client.get_user(user)
   end
 
   defp switches do

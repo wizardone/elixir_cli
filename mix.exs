@@ -3,10 +3,11 @@ defmodule TravisCli.MixProject do
 
   def project do
     [
-      app: :elixir_cli,
+      app: :travis_cli,
       version: "0.1.0",
       elixir: "~> 1.6",
       start_permanent: Mix.env() == :prod,
+      elixirc_paths: elixirc_paths(Mix.env),
       deps: deps(),
       escript: escript()
     ]
@@ -19,9 +20,9 @@ defmodule TravisCli.MixProject do
     ]
   end
 
-  defp escript do
-    [main_module: TravisCli]
-  end
+  defp elixirc_paths(:test), do: ["lib", "test/support"]
+  defp elixirc_paths(_), do: ["lib", "test/support"]
+  defp escript, do: [main_module: TravisCli]
 
   # Run "mix help deps" to learn about dependencies.
   defp deps do
