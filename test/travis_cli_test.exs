@@ -19,10 +19,18 @@ defmodule TravisCliTest do
     assert capture_io(fn -> TravisCli.main(["--foobar"]) end) == "Not a valid command, please use --help\n"
   end
 
-  test "--user option" do
+  test "--me option" do
     TravisCli.FakeTravisApi
-    |> expect(:me, fn() -> IO.puts("Some user information") end)
+      |> expect(:me, fn() -> IO.puts("My information") end)
 
-    assert capture_io(fn -> TravisCli.main(["--me"]) end) == "Some user information\n"
+    assert capture_io(fn -> TravisCli.main(["--me"]) end) == "My information\n"
+  end
+
+  test "--user option" do
+    username = "12323"
+    TravisCli.FakeTravisApi
+      |> expect(:get_user, fn(_) -> IO.puts("Some user information about #{username}") end)
+
+    assert capture_io(fn -> TravisCli.main(["--user", username]) end) == "Some user information about #{username}\n"
   end
 end
