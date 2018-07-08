@@ -1,5 +1,5 @@
 defmodule TravisCli.TravisApi do
-  @callback get_user(any :: any) :: any
+  @callback me :: any
 end
 
 defmodule TravisCli.RealTravisApi do
@@ -7,7 +7,7 @@ defmodule TravisCli.RealTravisApi do
   @travis_api "https://api.travis-ci.org"
   @headers ["Authorization": "token #{Application.get_env(:travis_cli, :travis_token)}", "Travis-API-Version": "3"]
 
-  def get_user(_user) do
+  def me do
     case HTTPoison.get(@travis_api <> "/user", @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         IO.puts(body)

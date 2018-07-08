@@ -10,28 +10,28 @@ defmodule TravisCli do
     { valid, _, _ } = OptionParser.parse(args, switches: switches())
     case valid do
       [build: build] -> get_build(build)
-      [user: user] -> get_user(user)
+      [me: me] -> me()
       [help: _] -> print_help()
       _ -> IO.puts("Not a valid command, please use --help")
     end
   end
 
   defp print_help do
-    IO.puts("Provide one of : --build, --builds, --user to retrieve information from Travis")
+    IO.puts("Provide one of : --build, --builds, --me to retrieve information from Travis")
   end
 
   defp get_build(_build) do
   end
 
-  defp get_user(user) do
-    @api_client.get_user(user)
+  defp me() do
+    @api_client.me()
   end
 
   defp switches do
     [
       build: :string,
       builds: :string,
-      user: :boolean
+      me: :boolean
     ]
   end
 end

@@ -1,6 +1,7 @@
 defmodule TravisCli.FakeTravisApi do
   @behaviour TravisCli.TravisApi
-  def get_user('user') do
-    'haha'
+
+  def me do
+    IO.puts("Some user information")
   end
 end
