@@ -1,6 +1,7 @@
 defmodule TravisCli.TravisApi do
   @callback me :: any
   @callback get_user(any) :: any
+  @callback get_active(any) :: any
 end
 
 defmodule TravisCli.RealTravisApi do
@@ -19,6 +20,17 @@ defmodule TravisCli.RealTravisApi do
 
   def get_user(username) do
     case HTTPoison.get(@travis_api <> "/user/#{username}", @headers) do
+      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
+        IO.puts(body)
+      {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->
+        IO.puts(body)
+      {:error, %HTTPoison.Error{reason: reason}} ->
+        IO.puts(reason)
+    end
+  end
+
+  def get_active(login) do
+    case HTTPoison.get(@travis_api <> "/owner/#{login}/active", @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         IO.puts(body)
       {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->

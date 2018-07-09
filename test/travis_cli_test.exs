@@ -12,7 +12,7 @@ defmodule TravisCliTest do
   end
 
   test "main help" do
-    assert capture_io(fn -> TravisCli.main(["--help"]) end) == "Provide one of : --build, --builds, --me to retrieve information from Travis\n"
+    assert capture_io(fn -> TravisCli.main(["--help"]) end) == "Provide one of : --build, --active, --me to retrieve information from Travis\n"
   end
 
   test "main not a valid command" do
@@ -32,5 +32,13 @@ defmodule TravisCliTest do
       |> expect(:get_user, fn(_) -> IO.puts("Some user information about #{username}") end)
 
     assert capture_io(fn -> TravisCli.main(["--user", username]) end) == "Some user information about #{username}\n"
+  end
+
+  test "--active option" do
+    username = "wizardone"
+    TravisCli.FakeTravisApi
+      |> expect(:get_active, fn(_) -> IO.puts("Active build for #{username}") end)
+
+    assert capture_io(fn -> TravisCli.main(["--active", username]) end) == "Active build for #{username}\n"
   end
 end

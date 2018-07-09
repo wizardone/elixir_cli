@@ -11,6 +11,7 @@ defmodule TravisCli do
     case valid do
       [build: build] -> get_build(build)
       [user: username] -> get_user(username)
+      [active: username] -> get_active(username)
       [me: _] -> me()
       [help: _] -> print_help()
       _ -> IO.puts("Not a valid command, please use --help")
@@ -18,7 +19,7 @@ defmodule TravisCli do
   end
 
   defp print_help do
-    IO.puts("Provide one of : --build, --builds, --me to retrieve information from Travis")
+    IO.puts("Provide one of : --build, --active, --me to retrieve information from Travis")
   end
 
   defp me() do
@@ -29,6 +30,10 @@ defmodule TravisCli do
     @api_client.get_user(username)
   end
 
+  defp get_active(username) do
+    @api_client.get_active(username)
+  end
+
   defp get_build(_build) do
   end
 
@@ -36,6 +41,7 @@ defmodule TravisCli do
     [
       build: :string,
       builds: :string,
+      active: :string,
       user: :string,
       me: :boolean
     ]
