@@ -10,27 +10,19 @@ defmodule TravisCli.RealTravisApi do
   @headers ["Authorization": "token #{Application.get_env(:travis_cli, :travis_token)}", "Travis-API-Version": "3"]
 
   def me do
-    case HTTPoison.get(@travis_api <> "/user", @headers) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts(body)
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.puts(reason)
-    end
+    perform_call(@travis_api <> "/user")
   end
 
   def get_user(username) do
-    case HTTPoison.get(@travis_api <> "/user/#{username}", @headers) do
-      {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts(body)
-      {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->
-        IO.puts(body)
-      {:error, %HTTPoison.Error{reason: reason}} ->
-        IO.puts(reason)
-    end
+    perform_call(@travis_api <> "/user/#{username}")
   end
 
   def get_active(login) do
-    case HTTPoison.get(@travis_api <> "/owner/#{login}/active", @headers) do
+    perform_call(@travis_api <> "/owner/#{login}/active")
+  end
+
+  defp perform_call(url) do
+    case HTTPoison.get(url, @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
         IO.puts(body)
       {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->
