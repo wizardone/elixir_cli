@@ -1,7 +1,7 @@
 defmodule TravisCli.TravisApi do
-  @callback me :: any
-  @callback get_user(any) :: any
-  @callback get_active(any) :: any
+  @callback me :: String.t
+  @callback get_user(String.t) :: String.t
+  @callback get_active(String.t) :: String.t
 end
 
 defmodule TravisCli.RealTravisApi do
