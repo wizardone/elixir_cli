@@ -10,6 +10,7 @@ defmodule TravisCli do
       [build: build] -> get_build(build)
       [user: user] -> get_user(user)
       [help: _] -> print_help()
+      [me: _] -> get_me()
       _ -> IO.puts("Not a valid command, please use --help")
     end
   end
@@ -25,11 +26,16 @@ defmodule TravisCli do
     TravisCli.TravisApi.get_user(user)
   end
 
+  defp get_me do
+    TravisCli.TravisApi.get_me()
+  end
+
   defp switches do
     [
       build: :string,
       builds: :string,
-      user: :boolean
+      user: :integer,
+      me: :boolean
     ]
   end
 end
