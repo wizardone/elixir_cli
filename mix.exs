@@ -28,7 +28,8 @@ defmodule TravisCli.MixProject do
   defp deps do
     [
       {:httpoison, "~> 1.0"},
-      {:mox, "~> 0.3", only: :test}
+      {:mox, "~> 0.3", only: :test},
+      {:poison, "~> 3.1"}
     ]
   end
 end

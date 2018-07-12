@@ -24,11 +24,19 @@ defmodule TravisCli.RealTravisApi do
   defp perform_call(url) do
     case HTTPoison.get(url, @headers) do
       {:ok, %HTTPoison.Response{status_code: 200, body: body}} ->
-        IO.puts(body)
+        body
+        |> Poison.decode!()
+        |> parse_body()
       {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->
-        IO.puts(body)
+        body
+        |> parse_body
       {:error, %HTTPoison.Error{reason: reason}} ->
         IO.puts(reason)
     end
+  end
+
+
+  defp parse_body(%{} = body) do
+    IO.puts(body)
   end
 end
