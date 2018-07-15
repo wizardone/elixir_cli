@@ -36,7 +36,15 @@ defmodule TravisCli.RealTravisApi do
   end
 
 
-  defp parse_body(%{} = body) do
-    IO.puts(body)
+  defp parse_body(body) when is_map(body) do
+    body
+    |> Enum.each(fn {key, value} ->
+      case value do
+        %{} ->
+          parse_body(%{})
+        _ ->
+        IO.puts("#{key} -> #{value}")
+      end
+    end)
   end
 end
