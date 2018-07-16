@@ -29,6 +29,7 @@ defmodule TravisCli.RealTravisApi do
         |> parse_body()
       {:ok, %HTTPoison.Response{status_code: 404, body: body}} ->
         body
+        |> Poison.decode!()
         |> parse_body
       {:error, %HTTPoison.Error{reason: reason}} ->
         IO.puts(reason)
@@ -38,13 +39,15 @@ defmodule TravisCli.RealTravisApi do
 
   defp parse_body(body) when is_map(body) do
     body
-    |> Enum.each(fn {key, value} ->
-      case value do
-        %{} ->
-          parse_body(%{})
-        _ ->
-        IO.puts("#{key} -> #{value}")
-      end
-    end)
+    |> Enum.each(fn {key, value} -> inspect_body(key, value) end)
+  end
+
+  defp inspect_body(key, value) when is_map(value) do
+    value
+    |> Enum.each(fn {key, value} -> IO.puts("#{key} -> #{value}") end)
+  end
+
+  defp inspect_body(key, value) do
+    IO.puts("#{key} -> #{value}")
   end
 end
